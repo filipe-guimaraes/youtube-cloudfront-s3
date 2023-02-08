@@ -1,0 +1,20 @@
+{
+    "Id": "Policy1675826890088",
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "Stmt1675826888949",
+        "Action": [
+          "s3:GetObject"
+        ],
+        "Effect": "Allow",
+        "Resource": "ARN_DO_SEU_BUCKET/*",
+        "Condition": {
+          "StringEquals": {
+            "aws:Referer": "CUSTOM_HEADER"
+          }
+        },
+        "Principal": "*"
+      }
+    ]
+  }

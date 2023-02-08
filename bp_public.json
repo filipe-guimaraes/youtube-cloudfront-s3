@@ -1,0 +1,15 @@
+{
+  "Id": "Policy1675826135130",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1675826133498",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Effect": "Allow",
+      "Resource": "ARN_DO_SEU_BUCKET/*",
+      "Principal": "*"
+    }
+  ]
+}
