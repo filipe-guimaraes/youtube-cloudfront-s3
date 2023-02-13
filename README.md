@@ -74,7 +74,7 @@
               "Service": "cloudfront.amazonaws.com"
           },
           "Action": "s3:GetObject",
-          "Resource": "ARN_DO_SEU_BUCET/*",
+          "Resource": "ARN_DO_SEU_BUCKET/*",
           "Condition": {
               "StringEquals": {
                   "AWS:SourceArn": "ARN_DA_SUA_DISTRIBUICAO_DE_CLOUDFRONT"
