@@ -23,7 +23,7 @@ jobs:
        
       - name: Sync To S3
         run: |
-          aws s3 sync app/ ${{vars.BUCKET_URL}} --delete
+          aws s3 sync static_website ${{vars.BUCKET_URL}} --delete
     
       - name : Cache Invalidation on CloudFront
         run: |
