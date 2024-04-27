@@ -30,29 +30,4 @@ jobs:
       - name: Update ECS Service
         run: |
           aws ecs update-service --cluster ${{vars.ECS_CLUSTER_NAME}} --service ${{vars.ECS_SERVICE_NAME}} --force-new-deployment
-
-#jobs:
-#  frontend:
-#    name: Deploy To AWS
-#    runs-on: ubuntu-22.04
-#    
-#    steps:
-#    
-#      - name: Checking Code Out
-#        uses: actions/checkout@v4
-#      
-#      - name: Configure AWS Credentials
-#        uses: aws-actions/configure-aws-credentials@v4
-#        with:
-#          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
-#          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-#          aws-region: ${{vars.AWS_REGION}}
-#       
-#      - name: Sync To S3
-#        run: |
-#          aws s3 sync static_website ${{vars.BUCKET_URL}} --delete
-#    
-#      - name : Cache Invalidation on CloudFront
-#        run: |
-#          aws cloudfront create-invalidation --distribution-id ${{vars.CLOUDFRONT_DIST_ID}} --paths '/*'
       
