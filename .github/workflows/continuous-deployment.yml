@@ -5,12 +5,11 @@ on:
     - main
 
 jobs:
-  frontend:
-    name: Deploy To AWS
+  frontend_build:
+    name: Build Frontend on ECR
     runs-on: ubuntu-22.04
-    
+
     steps:
-    
       - name: Checking Code Out
         uses: actions/checkout@v4
       
@@ -20,12 +19,36 @@ jobs:
           aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
           aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws-region: ${{vars.AWS_REGION}}
-       
-      - name: Sync To S3
+
+      - name: Build & Push To ECR
         run: |
-          aws s3 sync static_website ${{vars.BUCKET_URL}} --delete
-    
-      - name : Cache Invalidation on CloudFront
-        run: |
-          aws cloudfront create-invalidation --distribution-id ${{vars.CLOUDFRONT_DIST_ID}} --paths '/*'
+          aws ecr get-login-password --region ${{vars.AWS_REGION}} | docker login --username AWS --password-stdin ${{vars.ECR_URI}}
+          docker build -t frontend .
+          docker tag frontend:latest ${{vars.ECR_REPO_URI}}
+          docker push ${{vars.ECR_REPO_URI}}
+
+#jobs:
+#  frontend:
+#    name: Deploy To AWS
+#    runs-on: ubuntu-22.04
+#    
+#    steps:
+#    
+#      - name: Checking Code Out
+#        uses: actions/checkout@v4
+#      
+#      - name: Configure AWS Credentials
+#        uses: aws-actions/configure-aws-credentials@v4
+#        with:
+#          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+#          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+#          aws-region: ${{vars.AWS_REGION}}
+#       
+#      - name: Sync To S3
+#        run: |
+#          aws s3 sync static_website ${{vars.BUCKET_URL}} --delete
+#    
+#      - name : Cache Invalidation on CloudFront
+#        run: |
+#          aws cloudfront create-invalidation --distribution-id ${{vars.CLOUDFRONT_DIST_ID}} --paths '/*'
       
