@@ -26,6 +26,10 @@ jobs:
           docker build -t frontend .
           docker tag frontend:latest ${{vars.ECR_REPO_URI}}
           docker push ${{vars.ECR_REPO_URI}}
+      
+      - name: Update ECS Service
+        run: |
+          aws ecs update-service --cluster ${{vars.ECS_CLUSTER_NAME}} --service ${{vars.ECS_SERVICE_NAME}} --force-new-deployment
 
 #jobs:
 #  frontend:
