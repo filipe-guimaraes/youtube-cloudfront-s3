@@ -35,7 +35,7 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ../../task-definition.json
+          task-definition: ./task-definition.json
           container-name: frontend
           image: ${{ vars.ECR_IMAGE_URI_LATEST }}
 
