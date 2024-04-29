@@ -24,8 +24,8 @@ jobs:
         run: |
           aws ecr get-login-password --region ${{vars.AWS_REGION}} | docker login --username AWS --password-stdin ${{vars.ECR_URI}}
           docker build -t frontend .
-          docker tag frontend:latest ${{vars.ECR_REPO_URI}}
-          docker push ${{vars.ECR_REPO_URI}}
+          docker tag ${{vars.PROJECT_NAME}}:latest ${{vars.ECR_IMAGE_URI_LATEST}}
+          docker push ${{vars.ECR_IMAGE_URI_LATEST}}
       
       # - name: Update ECS Service
       #   run: |
