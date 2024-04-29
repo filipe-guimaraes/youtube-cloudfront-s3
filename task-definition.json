@@ -1,5 +1,5 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:701974052433:task-definition/frontend:1",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:701974052433:task-definition/frontend",
     "containerDefinitions": [
         {
             "name": "frontend",
