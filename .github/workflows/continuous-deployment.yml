@@ -32,20 +32,20 @@ jobs:
       #     aws ecs update-service --cluster ${{vars.ECS_CLUSTER_NAME}} --service ${{vars.ECS_SERVICE_NAME}} --force-new-deployment
       
       - name: Fill in the new image ID in the Amazon ECS task definition
-      id: task-def
-      uses: aws-actions/amazon-ecs-render-task-definition@v1
-      with:
-        task-definition: ../task-definition.json
-        container-name: frontend
-        image: ${{ vars.ECR_IMAGE_URI_LATEST }}
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ../task-definition.json
+          container-name: frontend
+          image: ${{ vars.ECR_IMAGE_URI_LATEST }}
 
-    - name: Deploy Amazon ECS task definition
-      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-      with:
-        task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: ${{ vars.ECS_SERVICE_NAME }}
-        cluster: ${{ vars.ECS_CLUSTER_NAME }}
-        wait-for-service-stability: true
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: ${{ vars.ECS_SERVICE_NAME }}
+          cluster: ${{ vars.ECS_CLUSTER_NAME }}
+          wait-for-service-stability: true
 
 # jobs:
 #   frontend_sync_s3:
